@@ -1,0 +1,64 @@
+from cProfile import label
+from tkinter import *
+from gpiozero import LED
+import RPi.GPIO
+
+
+redLed = LED(16)
+greenLed = LED(20)
+blueLed = LED(21)
+
+
+tkwindow = Tk()
+
+tkwindow.configure(bg="black")
+tkwindow.geometry("300x300")
+
+label1 = Label(text="Task 5.2C", background="white")
+label1.pack(pady=10 ,anchor=CENTER)
+
+def one():
+   if redLed.is_lit:
+      changeState = "red is off"
+      status.config(text = changeState)
+      redLed.off()
+   else:
+      changeState = "red is on"
+      status.config(text = changeState,background="#ee7676")
+      redLed.on()
+
+def two():
+   if greenLed.is_lit:
+      changeState = "green is off"
+      status.config(text = changeState)
+      greenLed.off()
+   else:
+      changeState = "green is on"
+      status.config(text = changeState,background="#63ff78")
+      greenLed.on()
+def three():
+   if blueLed.is_lit:
+      changeState = "blue is off"
+      status.config(text = changeState)
+      blueLed.off()
+   else:
+      changeState = "blue is on"
+      status.config(text = changeState,background="#9497ff")
+      blueLed.on()
+def exit():
+	RPi.GPIO.cleanup()
+	tkwindow.destroy()
+
+button1=Radiobutton(text="RED",foreground="white", background="red",command=one)
+button1.pack(pady=10)
+button2=Radiobutton(text="GREEN",foreground="white", background="green",command=two)
+button2.pack(pady=10)
+button3=Radiobutton(text="BLUE",foreground="white", background="blue",command=three)
+button3.pack(pady=10)
+button4=Button(text="Exit",background="red",command=exit)
+button4.pack(pady=10)
+
+status = Label()
+status.pack(pady=10)
+
+tkwindow.mainloop()
